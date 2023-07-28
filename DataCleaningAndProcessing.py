@@ -72,6 +72,8 @@ def removing_nulls():
     data.drop(data.loc[data['Changed_Credit_Limit'] == '_'].index, inplace=True)
     data['Changed_Credit_Limit'] = data['Changed_Credit_Limit'].astype(float)
     return data
+    # run method below to retrain model (pkl files)
+    # data_cleaning(data)
 
 
 
@@ -101,6 +103,8 @@ def data_cleaning(data):
     # dropped all rows containing bad values
     data.drop(data.index[data['Payment_Behaviour'] == '!@9#%8'], inplace=True)
     return data
+    # run method below to retrain model (pkl files)
+    # data_encoding(data)
 
 
 def data_encoding(data):
@@ -113,8 +117,7 @@ def data_encoding(data):
     data['Payment_of_Min_Amount'] = le.fit_transform(data.Payment_of_Min_Amount.values)
     mapping_paid_minamount = dict(zip(le.classes_, range(len(le.classes_))))
     return  mapping_occupation,mapping_payment_behaviour, mapping_credit_mix, mapping_paid_minamount
-
-
+    # run method below to retrain model (pkl files)
     # data_modelling(data)
 
 
@@ -228,8 +231,10 @@ def decision_tree(x_train, x_test, y_train, y_test):
     accuracy_score(y_pred, y_test)
     pickle.dump(pipe_dtc,open('DecisionTreeModel.pkl','wb'))
 
-# if __name__ == '__main__':
-#   importDataAndExplore()
+
+# run method below to retrain model (pkl files)
+if __name__ == '__main__':
+  removing_nulls()
 
 
 
